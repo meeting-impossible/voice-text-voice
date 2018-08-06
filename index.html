@@ -1,0 +1,501 @@
+<!-- <!DOCTYPE html>
+<html lang="en-US">
+<body>
+
+<h1>My Web Page</h1>
+
+<p>Hello everybody!</p>
+
+<p>Translate this page:</p>
+
+<div id="google_translate_element"></div>
+<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {pageLanguage: 'en'},
+            'google_translate_element'
+        );
+    }
+</script>
+<script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Text To Speech</title>
+    </head>
+    <body>
+
+        <input type="text" name="text">
+        <a href="#" class="say">Say it!</a>
+        <p id="try">你好，旧时光》是根据八月长安同名小说改编的青春校园网络剧，该剧由沙漠执导</p>
+        <audio src="" class="speech" hidden></audio>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            $(function(){
+                $("a.say").on("click",function(e){
+                    e.preventDefault();
+                    var text = $('input[name="text"]').val();
+                    var trytext = $("p").text();
+                    console.log(text); //come out input text
+                    text=encodeURIComponent(text); //replace space with %20 between words
+                    trytext=encodeURIComponent(trytext)
+                    console.log(trytext) 
+                    var language = "cmn-Hans-CN" //cmn-Hans-CN
+                    var url = "https://translate.google.com/translate_tts?ie=UTF-&&q="+trytext+"&tl="+language+"&client=tw-ob";
+                    $("audio").attr("src",url).get(0).play(); //get(0) is to get rid of the []
+                })
+            });
+        </script>
+    </body>
+</html> -->
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <style type="text/css">
+        body{
+            font-family: verdana;
+        }
+        #result{
+            height:200px;
+            border:1px solid #ccc;
+            padding:10px;
+            box-shadow: 0 0 10px 0 #bbb;
+            margin-bottom: 30px;
+            font-size:14px;
+            line-height:25px;
+        }
+        #speak{
+            font-size: 20px;
+            position: absolute;
+            top:240px;
+            left:50%;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <!-- <input type="text" name="text"> -->
+    <!-- <a href="#" class="say">Say it!</a> -->
+ <!--   <h4 align="center">Speech to text converterin JS</h4>
+    <div id="result"></div>
+    <button id="speak" onclick="startConverting();"><i class="fas fa-microphone-alt"></i></button>
+    <textarea id="text" rows="5" cols="100"></textarea>
+    <button class="butt js--triggerAnimation" onclick= "speak();" type="button" value="Play">Play</button>
+    <button class="butt js--triggerAnimation" onclick= "responsiveVoice.pause();" type="button" value="Pause">Pause</button>
+    <button class="butt js--triggerAnimation" onclick= "responsiveVoice.resume();" type="button" value="Resume">Resume</button>
+    <button class="butt js--triggerAnimation" onclick="responsiveVoice.cancel();" type="button" value="Stop">Stop</button>
+    <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+    <script>
+        var r = document.getElementById("result");
+        function startConverting(){
+            if("webkitSpeechRecognition" in window){
+                var speechRecognizer = new webkitSpeechRecognition();
+                speechRecognizer.continuous = true;
+                speechRecognizer.interimResults = true;
+                speechRecognizer.lang="en-US";
+                speechRecognizer.start();
+
+                var finalTranscripts = '';
+                speechRecognizer.onresult = function(event){
+                    var intermTranscripts = "";
+                    for (var i=event.resultIndex;i<event.results.length;i++){
+                        var transcript = event.results[i][0].transcript;
+                        transcript.replace("\n",'<br>')
+                        if(event.results[i].isFinal){
+                            finalTranscripts+=transcript;
+                        }else{
+                            intermTranscripts+=transcript;
+                        }
+                    }
+                    r.innerHTML=finalTranscripts+'<span style="color:#999">'+intermTranscripts+"</span>";
+
+                };
+
+                speechRecognizer.nerror=function(event){
+
+                };
+            }else{
+                r.innerHTML="Your browser is not supported"
+            }
+        }
+        
+        
+    </script>
+    <script>
+            function speak(){
+                var input = document.getElementById("text").value;
+                responsiveVoice.speak(input,"Chinese Female");
+            }
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Web Speech API Demo</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<style>
+  * {
+    font-family: Verdana, Arial, sans-serif;
+  }
+  .center {
+    padding: 10px;
+    text-align: center;
+  }
+  .final {
+    color: black;
+    padding-right: 3px; 
+  }
+  .interim {
+    color: gray;
+  }
+  .info {
+    font-size: 14px;
+    text-align: center;
+    color: #777;
+    display: none;
+  }
+  .right {
+    float: right;
+  }
+
+  #headline {
+    font-size: 40px;
+    font-weight: 300;
+  }
+  #info {
+    font-size: 20px;
+    text-align: center;
+    color: #777;
+    visibility: hidden;
+  }
+  #results {
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: left;
+    min-height: 150px;
+  }
+  #start_button {
+    border: 0;
+    background-color:transparent;
+    padding: 15px;
+    font-size: 1.5em;
+    color: red;
+    cursor: pointer;
+  }
+</style>
+<h1  id="headline" class="notranslate center">Speech Detection:</h1>
+<div id="info" class="notranslate">
+  <p id="info_start">Click on the microphone icon and begin speaking.</p>
+  <p id="info_speak_now">Speak now.</p>
+  <p id="info_no_speech">No speech was detected. You may need to adjust your
+    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">microphone settings</a>.
+  </p>
+  <p id="info_no_microphone" style="display:none">
+    No microphone was found. Ensure that a microphone is installed and that<a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+    microphone settings</a> are configured correctly.</p>
+  <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
+  <p id="info_denied">Permission to use microphone was denied.</p>
+  <p id="info_blocked">Permission to use microphone is blocked. To change,
+    go to chrome://settings/content settings/microphone</p>
+  <p id="info_upgrade">Web Speech API is not supported by this browser.
+     Upgrade to <a href="//www.google.com/chrome">Chrome</a>
+     version 25 or later.</p>
+</div>
+<div class="center notranslate">  
+    <p>Please select a language to speak</p>
+    <div id="div_language">
+      <select id="select_language" onchange="updateCountry()"></select>
+      <!-- &nbsp;&nbsp; -->
+      <select id="select_dialect"></select>
+    </div>
+  </div>
+<div class="right">
+  <button id="start_button" onclick="startButton(event)">
+    <i class="fas fa-microphone-alt" id="start_img"></i></button>
+</div>
+<div id="results">
+  <span id="final_span" class="final"></span>
+  <span id="interim_span" class="interim"></span>
+</div>
+  <div id="google_translate_element"></div>
+  <script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {pageLanguage: 'auto',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE},
+            'google_translate_element'
+        );
+    
+    }
+</script>
+<script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+var langs =
+[['Afrikaans',       ['af-ZA']],
+ ['Bahasa Indonesia',['id-ID']],
+ ['Bahasa Melayu',   ['ms-MY']],
+ ['Català',          ['ca-ES']],
+ ['Čeština',         ['cs-CZ']],
+ ['Deutsch',         ['de-DE']],
+ ['English',         ['en-AU', 'Australia'],
+                     ['en-CA', 'Canada'],
+                     ['en-IN', 'India'],
+                     ['en-NZ', 'New Zealand'],
+                     ['en-ZA', 'South Africa'],
+                     ['en-GB', 'United Kingdom'],
+                     ['en-US', 'United States']],
+ ['Español',         ['es-AR', 'Argentina'],
+                     ['es-BO', 'Bolivia'],
+                     ['es-CL', 'Chile'],
+                     ['es-CO', 'Colombia'],
+                     ['es-CR', 'Costa Rica'],
+                     ['es-EC', 'Ecuador'],
+                     ['es-SV', 'El Salvador'],
+                     ['es-ES', 'España'],
+                     ['es-US', 'Estados Unidos'],
+                     ['es-GT', 'Guatemala'],
+                     ['es-HN', 'Honduras'],
+                     ['es-MX', 'México'],
+                     ['es-NI', 'Nicaragua'],
+                     ['es-PA', 'Panamá'],
+                     ['es-PY', 'Paraguay'],
+                     ['es-PE', 'Perú'],
+                     ['es-PR', 'Puerto Rico'],
+                     ['es-DO', 'República Dominicana'],
+                     ['es-UY', 'Uruguay'],
+                     ['es-VE', 'Venezuela']],
+ ['Euskara',         ['eu-ES']],
+ ['Français',        ['fr-FR']],
+ ['Galego',          ['gl-ES']],
+ ['Hrvatski',        ['hr_HR']],
+ ['IsiZulu',         ['zu-ZA']],
+ ['Íslenska',        ['is-IS']],
+ ['Italiano',        ['it-IT', 'Italia'],
+                     ['it-CH', 'Svizzera']],
+ ['Magyar',          ['hu-HU']],
+ ['Nederlands',      ['nl-NL']],
+ ['Norsk bokmål',    ['nb-NO']],
+ ['Polski',          ['pl-PL']],
+ ['Português',       ['pt-BR', 'Brasil'],
+                     ['pt-PT', 'Portugal']],
+ ['Română',          ['ro-RO']],
+ ['Slovenčina',      ['sk-SK']],
+ ['Suomi',           ['fi-FI']],
+ ['Svenska',         ['sv-SE']],
+ ['Türkçe',          ['tr-TR']],
+ ['български',       ['bg-BG']],
+ ['Pусский',         ['ru-RU']],
+ ['Српски',          ['sr-RS']],
+ ['한국어',            ['ko-KR']],
+ ['中文',             ['cmn-Hans-CN', '普通话 (中国大陆)'],
+                     ['cmn-Hans-HK', '普通话 (香港)'],
+                     ['cmn-Hant-TW', '中文 (台灣)'],
+                     ['yue-Hant-HK', '粵語 (香港)']],
+ ['日本語',           ['ja-JP']],
+ ['Lingua latīna',   ['la']]];
+for (var i = 0; i < langs.length; i++) {
+  select_language.options[i] = new Option(langs[i][0], i);
+}
+select_language.selectedIndex = 6;
+updateCountry();
+select_dialect.selectedIndex = 6;
+showInfo('info_start');
+function updateCountry() {
+  for (var i = select_dialect.options.length - 1; i >= 0; i--) {
+    select_dialect.remove(i);
+  }
+  var list = langs[select_language.selectedIndex];
+  for (var i = 1; i < list.length; i++) {
+    select_dialect.options.add(new Option(list[i][1], list[i][0]));
+  }
+  select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
+}
+// var create_email = false;
+var final_transcript = '';
+var recognizing = false;
+var ignore_onend;
+var start_timestamp;
+if (!('webkitSpeechRecognition' in window)) {
+  upgrade();
+} else {
+  start_button.style.display = 'inline-block';
+  var recognition = new webkitSpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  recognition.onstart = function() {
+    recognizing = true;
+    showInfo('info_speak_now');
+    start_img.src = 'mic-animate.gif';
+  };
+  recognition.onerror = function(event) {
+    if (event.error == 'no-speech') {
+      start_img.src = 'mic.gif';
+      showInfo('info_no_speech');
+      ignore_onend = true;
+    }
+    if (event.error == 'audio-capture') {
+      start_img.src = 'mic.gif';
+      showInfo('info_no_microphone');
+      ignore_onend = true;
+    }
+    if (event.error == 'not-allowed') {
+      if (event.timeStamp - start_timestamp < 100) {
+        showInfo('info_blocked');
+      } else {
+        showInfo('info_denied');
+      }
+      ignore_onend = true;
+    }
+  };
+  recognition.onend = function() {
+    recognizing = false;
+    if (ignore_onend) {
+      return;
+    }
+    start_img.src = 'mic.gif';
+    if (!final_transcript) {
+      showInfo('info_start');
+      return;
+    }
+    showInfo('');
+    if (window.getSelection) {
+      window.getSelection().removeAllRanges();
+      var range = document.createRange();
+      range.selectNode(document.getElementById('final_span'));
+      window.getSelection().addRange(range);
+    }
+  
+  };
+  recognition.onresult = function(event) {
+    var interim_transcript = '';
+    for (var i = event.resultIndex; i < event.results.length; ++i) {
+      if (event.results[i].isFinal) {
+        final_transcript += event.results[i][0].transcript;
+      } else {
+        interim_transcript += event.results[i][0].transcript;
+      }
+    }
+    final_transcript = capitalize(final_transcript);
+    final_span.innerHTML = linebreak(final_transcript);
+    interim_span.innerHTML = linebreak(interim_transcript);
+    if (final_transcript || interim_transcript) {
+      showButtons('inline-block');
+    }
+  };
+}
+function upgrade() {
+  start_button.style.visibility = 'hidden';
+  showInfo('info_upgrade');
+}
+var two_line = /\n\n/g;
+var one_line = /\n/g;
+function linebreak(s) {
+  return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+}
+var first_char = /\S/;
+function capitalize(s) {
+  return s.replace(first_char, function(m) { return m.toUpperCase(); });
+}
+
+function startButton(event) {
+  if (recognizing) {
+    recognition.stop();
+    return;
+  }
+  final_transcript = '';
+  recognition.lang = select_dialect.value;
+  recognition.start();
+  ignore_onend = false;
+  final_span.innerHTML = '';
+  interim_span.innerHTML = '';
+  start_img.src = 'mic-slash.gif';
+  showInfo('info_allow');
+  showButtons('none');
+  start_timestamp = event.timeStamp;
+}
+function showInfo(s) {
+  if (s) {
+    for (var child = info.firstChild; child; child = child.nextSibling) {
+      if (child.style) {
+        child.style.display = child.id == s ? 'inline' : 'none';
+      }
+    }
+    info.style.visibility = 'visible';
+  } else {
+    info.style.visibility = 'hidden';
+  }
+}
+var current_style;
+function showButtons(style) {
+  if (style == current_style) {
+    return;
+  }
+  current_style = style;
+  copy_button.style.display = style;
+  email_button.style.display = style;
+  copy_info.style.display = 'none';
+  email_info.style.display = 'none';
+}
+</script>
+<div id="result"></div>
+<!-- <button id="speak" onclick="startConverting();"><i class="fas fa-microphone-alt"></i></button> -->
+<!-- <textarea id="text" rows="5" cols="100"></textarea> -->
+<button class="butt js--triggerAnimation" onclick= "speak();" type="button" value="Play">Play</button>
+<button class="butt js--triggerAnimation" onclick= "responsiveVoice.pause();" type="button" value="Pause">Pause</button>
+<button class="butt js--triggerAnimation" onclick= "responsiveVoice.resume();" type="button" value="Resume">Resume</button>
+<button class="butt js--triggerAnimation" onclick="responsiveVoice.cancel();" type="button" value="Stop">Stop</button>
+<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+<script>
+    var r = document.getElementById("result");
+    function startConverting(){
+        if("webkitSpeechRecognition" in window){
+            var speechRecognizer = new webkitSpeechRecognition();
+            speechRecognizer.continuous = true;
+            speechRecognizer.interimResults = true;
+            speechRecognizer.lang="en-US";
+            speechRecognizer.start();
+
+            var finalTranscripts = '';
+            speechRecognizer.onresult = function(event){
+                var intermTranscripts = "";
+                for (var i=event.resultIndex;i<event.results.length;i++){
+                    var transcript = event.results[i][0].transcript;
+                    transcript.replace("\n",'<br>')
+                    if(event.results[i].isFinal){
+                        finalTranscripts+=transcript;
+                    }else{
+                        intermTranscripts+=transcript;
+                    }
+                }
+                r.innerHTML=finalTranscripts+'<span style="color:#999">'+intermTranscripts+"</span>";
+
+            };
+
+            speechRecognizer.nerror=function(event){
+
+            };
+        }else{
+            r.innerHTML="Your browser is not supported"
+        }
+    }
+    
+    
+</script>
+<script>
+        function speak(){
+            var input = document.getElementById("text").value;
+            responsiveVoice.speak(input,"Chinese Female");
+        }
+</script>
