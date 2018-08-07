@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <style type="text/css">
+        body{
+            font-family: verdana;
+        }
+        #result{
+            height:200px;
+            border:1px solid #ccc;
+            padding:10px;
+            box-shadow: 0 0 10px 0 #bbb;
+            margin-bottom: 30px;
+            font-size:14px;
+            line-height:25px;
+        }
+        #speak{
+            font-size: 20px;
+            position: absolute;
+            top:240px;
+            left:50%;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <!-- <input type="text" name="text"> -->
+<!-- <a href="#" class="say">Say it!</a> --> 
+  <h4 align="center">Speech to text converterin JS</h4>
+    <div id="result"></div>
+    <button id="speak" onclick="startConverting();"><i class="fas fa-microphone-alt"></i></button>
+    <textarea id="text" rows="5" cols="100"></textarea>
+    <p> Please select a voice to speak</p>
+    <select id="voiceselection"></select>
+    <button class="butt js--triggerAnimation" onclick= "responsiveVoice.speak($('#text').val(),$('#voiceselection').val());" type="button" value="Play">Play</button>
+    <button class="butt js--triggerAnimation" onclick= "responsiveVoice.pause();" type="button" value="Pause">Pause</button>
+    <button class="butt js--triggerAnimation" onclick= "responsiveVoice.resume();" type="button" value="Resume">Resume</button>
+    <button class="butt js--triggerAnimation" onclick="responsiveVoice.cancel();" type="button" value="Stop">Stop</button>
+    <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+        var r = document.getElementById("result");
+        function startConverting(){
+            if("webkitSpeechRecognition" in window){
+                var speechRecognizer = new webkitSpeechRecognition();
+                speechRecognizer.continuous = true;
+                speechRecognizer.interimResults = true;
+                speechRecognizer.lang="en-US";
+                speechRecognizer.start();
+
+                var finalTranscripts = '';
+                speechRecognizer.onresult = function(event){
+                    var intermTranscripts = "";
+                    for (var i=event.resultIndex;i<event.results.length;i++){
+                        var transcript = event.results[i][0].transcript;
+                        transcript.replace("\n",'<br>')
+                        if(event.results[i].isFinal){
+                            finalTranscripts+=transcript;
+                        }else{
+                            intermTranscripts+=transcript;
+                        }
+                    }
+                    r.innerHTML=finalTranscripts+'<span style="color:#999">'+intermTranscripts+"</span>";
+
+                };
+
+                speechRecognizer.nerror=function(event){
+
+                };
+            }else{
+                r.innerHTML="Your browser is not supported"
+            }
+        }
+        var voicelist = responsiveVoice.getVoices();
+        var vselect = $("#voiceselection");
+        $.each(voicelist, function() {
+                vselect.append($("<option />").val(this.name).text(this.name));
+        });
+        
+    </script>
+    
+</body>
+</html> 
